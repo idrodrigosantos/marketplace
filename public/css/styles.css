@@ -16,7 +16,8 @@
     border: none;
 }
 
-html, body {
+html,
+body {
     min-height: 100vh;
 }
 
@@ -71,7 +72,8 @@ body {
 
 /* Header */
 
-header, footer {
+header,
+footer {
     background-color: black;
     color: white;
     width: 100%;
@@ -176,7 +178,10 @@ form .item>div:nth-child(1) {
     margin-bottom: 8px;
 }
 
-form .item input[type="text"], form .item input[type="number"], form .item textarea, form .item select {
+form .item input[type="text"],
+form .item input[type="number"],
+form .item textarea,
+form .item select {
     width: 100%;
     padding: 8px 16px;
     box-shadow: 2px 2px 2px -4px rgba(63, 63, 63, 0.9);
