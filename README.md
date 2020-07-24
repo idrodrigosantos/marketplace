@@ -55,6 +55,7 @@ $ npm start
 
 * [Express](https://github.com/expressjs/express)
 * [method-override](https://github.com/expressjs/method-override)
+* [Multer](https://github.com/expressjs/multer)
 * [Nunjucks](https://github.com/mozilla/nunjucks)
 * [node-postgres](https://github.com/brianc/node-postgres)
 
