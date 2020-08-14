@@ -1,6 +1,5 @@
 {
   "name": "marketplace",
-  "main": "src/server.js",
   "scripts": {
     "start": "npm-run-all -p nodemon browsersync",
     "nodemon": "nodemon src/server.js",

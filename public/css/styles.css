@@ -429,3 +429,85 @@ form .item #photos-preview img {
     font-size: 14px;
     letter-spacing: 0.4px;
 }
+
+/* Shop */
+.shop h2 {
+    margin: 48px 0;
+}
+
+.shop .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+}
+
+.shop .product {
+    display: grid;
+}
+
+.shop .product .image {
+    padding-top: 56.25%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.shop .items h4 {
+    margin: 8px 0;
+    font-weight: 300;
+    color: #999999;
+}
+
+.shop .items p {
+    color: #101010;
+    font-weight: 300;
+    font-size: 24px;
+    margin-top: 8px;
+}
+
+.shop .product .old-price {
+    padding: 0;
+    margin: 4px 0;
+    font-size: 14px;
+    color: #999999;
+    text-decoration: line-through;
+}
+
+/* Search page */
+.search-products {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    margin-top: 48px;
+}
+
+.search-products .header {
+    margin-bottom: 48px;
+    font-size: 14px;
+    color: #333333;
+}
+
+.search-products .header h2 {
+    font-size: 26px;
+    text-transform: capitalize;
+    margin-bottom: 8px;
+}
+
+.search-products nav h4 {
+    margin-bottom: 16px;
+    color: #333333;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.search-products nav ul {
+    margin: 4px 0;
+}
+
+.search-products nav ul a {
+    color: #777777;
+}
+
+.search-products nav ul a:hover {
+    color: black;
+    font-weight: bold;
+}

@@ -5,19 +5,22 @@ const routes = express.Router();
 // Importa o Multer
 const multer = require('./app/middleware/multer');
 
-// Controller
+// Controllers
 const ProductController = require('./app/controllers/ProductController');
+const HomeController = require('./app/controllers/HomeController');
+const SearchController = require('./app/controllers/SearchController');
 
-// Rota inicial
-routes.get('/', function (req, res) {
-    return res.render('layout.njk');
-});
+// Página inicial
+routes.get('/', HomeController.index);
+
+// Pesquisar
+routes.get('/products/search', SearchController.index);
 
 // Cadastrar produto
 routes.get('/products/create', ProductController.create);
 routes.post('/products', multer.array('photos', 6), ProductController.post);
 
-// Mostra Produto
+// Mostrar produto
 routes.get('/products/:id', ProductController.show);
 
 // Editar produto
