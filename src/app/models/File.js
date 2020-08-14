@@ -5,6 +5,7 @@ const db = require('../../config/db');
 const fs = require('fs');
 
 module.exports = {
+    // Cadastra produto
     create({ filename, path, product_id }) {
         const query = `INSERT INTO files (
             name,
@@ -21,6 +22,7 @@ module.exports = {
 
         return db.query(query, values);
     },
+    // Deleta produto
     async delete(id) {
         try {
             const result = await db.query('SELECT * FROM files WHERE id = $1', [id]);
