@@ -2,9 +2,9 @@
 const { formatPrice, date } = require('../../lib/utils');
 
 // Importa os modelos
+const Product = require('../models/Product');
 const Category = require('../models/Category');
 const File = require('../models/File');
-const Product = require('../models/Product');
 
 module.exports = {
     create(req, res) {
@@ -44,7 +44,7 @@ module.exports = {
         return res.render('products/show', { product, files });
     },
     async post(req, res) {
-        // Lógica de salvar        
+        // Lógica de salvar
         const keys = Object.keys(req.body);
 
         for (key of keys) {
@@ -92,6 +92,7 @@ module.exports = {
             src: `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`
         }));
 
+        // return res.render('products/edit.njk', { product, categories });
         return res.render('products/edit.njk', { product, categories, files });
     },
     async put(req, res) {
