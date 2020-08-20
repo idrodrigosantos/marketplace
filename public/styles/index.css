@@ -1,5 +1,4 @@
 /* Global */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 :root {
     --primary-color: #fd951f;
@@ -178,6 +177,7 @@ form .item>div:nth-child(1) {
     margin-bottom: 8px;
 }
 
+form .item .input input,
 form .item input[type="text"],
 form .item input[type="number"],
 form .item textarea,
@@ -510,4 +510,17 @@ form .item #photos-preview img {
 .search-products nav ul a:hover {
     color: black;
     font-weight: bold;
+}
+
+/* User register */
+.user-register.container.form {
+    max-width: 500px;
+}
+
+/* Validate errors */
+.input .error {
+    background-color: #e74c3c;
+    padding: 4px;
+    border-radius: 4px;
+    color: white;
 }
