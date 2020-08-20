@@ -139,4 +139,4 @@ module.exports = {
 
         return res.redirect('/products/create');
     }
-}
+};

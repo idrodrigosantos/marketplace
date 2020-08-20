@@ -5,4 +5,4 @@ module.exports = {
     all() {
         return db.query('SELECT * FROM categories');
     }
-}
+};

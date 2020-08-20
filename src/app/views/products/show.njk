@@ -25,29 +25,29 @@
         </div>
 
         <div class="info">
-            <h1>{{product.name}}</h1>
+            <h1>{{ product.name }}</h1>
 
             <div class="published">
-                Publicado em {{product.published.day}} às {{product.published.hour}}
+                Publicado em {{ product.published.day }} às {{ product.published.hour }}
             </div>
 
             <div class="description">
-                {{product.description}}
+                {{ product.description }}
             </div>
 
             <div class="price-buy">
                 <div class="price">
-                    {{product.price}}
+                    {{ product.price }}
 
                     {% if product.price !== product.oldPrice %}
-                        <span class="old">{{product.oldPrice}}</span>
+                        <span class="old">{{ product.oldPrice }}</span>
                     {% endif %}
                 </div>
 
                 <div class="buy">
                     {% if product.status == 0 %}
                         <p class="unavailable">Indisponível</p>
-                    {% elseif product.quantity == 0%}
+                    {% elseif product.quantity == 0 %}
                         <p class="unavailable">Fora de estoque</p>
                     {% else %}
                         <button class="button">Comprar</button>

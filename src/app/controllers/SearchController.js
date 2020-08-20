@@ -29,7 +29,7 @@ module.exports = {
                 const files = results.rows.map(file => `${req.protocol}://${req.headers.host}${file.path.replace('public', '')}`);
 
                 return files[0];
-            }
+            };
 
             const productsPromise = results.rows.map(async product => {
                 product.img = await getImage(product.id);
@@ -64,4 +64,4 @@ module.exports = {
             console.error(err);
         }
     }
-}
+};
