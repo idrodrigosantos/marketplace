@@ -53,6 +53,7 @@ $ npm start
 
 ## Dependências
 
+* [bcrypt.js](https://github.com/dcodeIO/bcrypt.js)
 * [Express](https://github.com/expressjs/express)
 * [method-override](https://github.com/expressjs/method-override)
 * [Multer](https://github.com/expressjs/multer)
