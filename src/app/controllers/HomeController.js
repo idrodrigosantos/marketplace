@@ -3,7 +3,6 @@ const { formatPrice } = require('../../lib/utils');
 
 // Importa os modelos
 const Product = require('../models/Product');
-const File = require('../models/File');
 
 module.exports = {
     async index(req, res) {

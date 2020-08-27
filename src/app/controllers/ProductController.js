@@ -58,6 +58,8 @@ module.exports = {
             return res.send('Por favor, envie pelo menos uma imagem.');
         }
 
+        req.body.user_id = req.session.userId;
+
         let results = await Product.create(req.body);
         const productId = results.rows[0].id;
 
