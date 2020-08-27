@@ -36,7 +36,7 @@ module.exports = new Pool({
 ## Envio de e-mails
 Para testar o envio de e-mails é necessário ter uma conta no [Mailtrap](https://mailtrap.io/).
 
-Acesse o arquivo `mailer.js` em `src/lib/.js` e configure o usuário e senha de conexão com o Mailtrap.
+Acesse o arquivo `mailer.js` em `src/lib/` e configure o usuário e senha de conexão com o Mailtrap.
 ```js
 module.exports = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
