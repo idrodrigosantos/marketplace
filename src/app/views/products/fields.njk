@@ -27,7 +27,14 @@
     <div>Fotos</div>
     <div>
         <div id="photos-upload">
-            <input id="photos-input" type="file" name="photos" multiple="multiple" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
+            <input
+                id="photos-input"
+                type="file"
+                name="photos"
+                multiple="multiple"
+                accept="image/*"
+                onchange="PhotosUpload.handleFileInput(event)"
+            >
             <p>Selecione até 6 fotos</p>
         </div>
         <div id="photos-preview">
@@ -47,17 +54,32 @@
 <div class="item">
     <div>Valor</div>
     <div>
-        <input type="text" name="price" placeholder="Preço do produto" value="{{ product.price }}" onkeydown="Mask.apply(this, 'formatBRL')">
+        <input
+            type="text"
+            name="price"
+            placeholder="Preço do produto"
+            value="{{ product.price }}"
+            onkeydown="Mask.apply(this, 'formatBRL')"
+        >
     </div>
     {% if product.old_price %}
-        <input type="hidden" name="old_price" value="{{ product.old_price }}">
+        <input
+            type="hidden"
+            name="old_price"
+            value="{{ product.old_price }}"
+        >
     {% endif %}
 </div>
 
 <div class="item">
     <div>Quantidade</div>
     <div>
-        <input type="number" name="quantity" placeholder="Estoque disponível" value="{{ product.quantity }}">
+        <input
+            type="number"
+            name="quantity"
+            placeholder="Estoque disponível"
+            value="{{ product.quantity }}"
+        >
     </div>
 </div>
 
