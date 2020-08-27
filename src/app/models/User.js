@@ -3,6 +3,10 @@ const db = require('../../config/db');
 
 // Importa bcryptjs
 const { hash } = require('bcryptjs');
+const fs = require('fs');
+
+// Importa o modelo
+const Product = require('../models/Product');
 
 module.exports = {
     async findOne(filters) {
@@ -53,5 +57,52 @@ module.exports = {
         } catch (err) {
             console.log(err);
         }
+    },
+    async update(id, fields) {
+        let query = 'UPDATE users SET';
+
+        Object.keys(fields).map((key, index, array) => {
+            if ((index + 1) < array.length) {
+                query = `${query}
+                    ${key} = '${fields[key]}',
+                `;
+            } else {
+                // Última iteração
+                query = `${query}
+                    ${key} = '${fields[key]}'
+                    WHERE id = ${id}
+                `;
+            }
+        });
+
+        await db.query(query);
+
+        return;
+    },
+    async delete(id) {
+        // Seleciona todos os produtos do usuário
+        let results = await db.query('SELECT * FROM products WHERE user_id = $1', [id]);
+        const products = results.rows;
+
+        // Seleciona todas as imagens dos produtos
+        const allFilesPromise = products.map(product =>
+            Product.files(product.id)
+        );
+
+        let promiseResults = await Promise.all(allFilesPromise);
+
+        // Faz a remoção do usuário
+        await db.query('DELETE FROM users WHERE id = $1', [id]);
+
+        // Remove as imagens da pasta public
+        promiseResults.map(results => {
+            results.rows.map(file => {
+                try {
+                    fs.unlinkSync(file.path);
+                } catch (err) {
+                    console.error(err);
+                }
+            });
+        });
     }
 };
