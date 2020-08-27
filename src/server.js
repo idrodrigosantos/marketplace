@@ -8,8 +8,20 @@ const routes = require('./routes');
 // Importa o method-override
 const methodOverride = require('method-override');
 
+// Importa a sessão
+const session = require('./config/session');
+
 // Cria o servidor
 const server = express();
+
+// Cria a sessão
+server.use(session);
+
+// Variável global
+server.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
 
 // Funcionamento do req.body do post, enviando os dados do formulário
 server.use(express.urlencoded({ extended: true }));
