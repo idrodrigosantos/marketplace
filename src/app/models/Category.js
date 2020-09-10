@@ -1,8 +1,7 @@
-// Importa a conexão com o banco de dados
-const db = require('../../config/db');
+// Importa e usa o Base
+const Base = require('./Base');
+Base.init({ table: 'categories' });
 
 module.exports = {
-    all() {
-        return db.query('SELECT * FROM categories');
-    }
+    ...Base,
 };
