@@ -12,7 +12,12 @@
 <div class="item">
     <div>Título</div>
     <div>
-        <input type="text" name="name" placeholder="Digite o título do anúncio" value="{{ product.name }}">
+        <input
+            type="text"
+            name="name"
+            placeholder="Digite o título do anúncio"
+            value="{{ product.name }}"
+        >
     </div>
 </div>
 
@@ -38,8 +43,8 @@
             <p>Selecione até 6 fotos</p>
         </div>
         <div id="photos-preview">
-            {% if files %}
-                {% for image in files %}
+            {% if product.files %}
+                {% for image in product.files %}
                     <div class="photo" id="{{ image.id }}">
                         <img src="{{ image.src }}" alt="{{ image.name }}">
                         <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
@@ -58,7 +63,7 @@
             type="text"
             name="price"
             placeholder="Preço do produto"
-            value="{{ product.price }}"
+            value="{{ product.formattedPrice }}"
             onkeydown="Mask.apply(this, 'formatBRL')"
         >
     </div>
@@ -66,7 +71,7 @@
         <input
             type="hidden"
             name="old_price"
-            value="{{ product.old_price }}"
+            value="{{ product.formattedOldPrice }}"
         >
     {% endif %}
 </div>

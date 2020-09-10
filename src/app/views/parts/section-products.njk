@@ -7,12 +7,16 @@
         <div class="items">
             {% for product in products %}
                 <div class="product">
-                    <div class="image" style="background-image: url('{{ product.img if product.img else '//placehold.it/500x360' }}')"></div>
+                    <div
+                        class="image"
+                        style="background-image: url('{{ product.img if product.img else '//placehold.it/500x360' }}')"
+                    >
+                    </div>
 
-                    {% if product.oldPrice != product.price %}
-                        <div class="old-price">{{ product.oldPrice }}</div>
+                    {% if product.formattedOldPrice != product.formattedPrice %}
+                        <div class="old-price">{{ product.formattedOldPrice }}</div>
                     {% endif %}
-                    <p>{{ product.price }}</p>
+                    <p>{{ product.formattedPrice }}</p>
 
                     <h4>{{ product.name }}</h4>
 
