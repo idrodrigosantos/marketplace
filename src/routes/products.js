@@ -11,19 +11,21 @@ const SearchController = require('../app/controllers/SearchController');
 
 const { onlyUsers } = require('../app/middlewares/session');
 
+const Validator = require('../app/validators/product');
+
 // Pesquisar
 routes.get('/search', SearchController.index);
 
 // Cadastrar produto
 routes.get('/create', onlyUsers, ProductController.create);
-routes.post('/', onlyUsers, multer.array('photos', 6), ProductController.post);
+routes.post('/', onlyUsers, multer.array('photos', 6), Validator.post, ProductController.post);
 
 // Mostrar produto
 routes.get('/:id', ProductController.show);
 
 // Editar produto
 routes.get('/:id/edit', onlyUsers, ProductController.edit);
-routes.put('/', onlyUsers, multer.array('photos', 6), ProductController.put);
+routes.put('/', onlyUsers, multer.array('photos', 6), Validator.put, ProductController.put);
 
 // Deletar produto
 routes.delete('/', onlyUsers, ProductController.delete);
