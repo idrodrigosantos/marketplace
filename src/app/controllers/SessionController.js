@@ -73,7 +73,7 @@ module.exports = {
     async reset(req, res) {
         const user = req.user;
         const { password, token } = req.body;
-
+ 
         try {
             // Cria um novo hash de senha
             const newPassword = await hash(password, 8);

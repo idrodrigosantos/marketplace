@@ -1,5 +1,13 @@
+// Importa os pacotes
+const { unlinkSync } = require('fs');
+const { hash } = require('bcryptjs');
+
 // Importa o modelo
 const User = require('../models/User');
+const Product = require('../models/Product');
+
+// Importa o service
+const LoadProductService = require('../services/LoadProductService');
 
 // Importa Utils
 const { formatCpfCnpj, formatCep } = require('../../lib/utils');
@@ -9,19 +17,49 @@ module.exports = {
         return res.render('user/register');
     },
     async show(req, res) {
-        const { user } = req;
+        try {
+            const { user } = req;
 
-        user.cpf_cnpj = formatCpfCnpj(user.cpf_cnpj);
-        user.cep = formatCep(user.cep);
+            user.cpf_cnpj = formatCpfCnpj(user.cpf_cnpj);
+            user.cep = formatCep(user.cep);
 
-        return res.render('user/index', { user });
+            return res.render('user/index', { user });
+        } catch (error) {
+            console.error(error);
+        }
     },
     async post(req, res) {
-        const userId = await User.create(req.body);
+        try {
+            let {
+                name,
+                email,
+                password,
+                cpf_cnpj,
+                cep,
+                address
+            } = req.body;
 
-        req.session.userId = userId;
+            // Hash de senha
+            password = await hash(password, 8);
 
-        return res.redirect('/users');
+            cpf_cnpj = cpf_cnpj.replace(/\D/g, '');
+            cep = cep.replace(/\D/g, '');
+
+            const userId = await User.create({
+                name,
+                email,
+                password,
+                cpf_cnpj,
+                cep,
+                address
+            });
+
+            req.session.userId = userId;
+
+            return res.redirect('/users');
+        } catch (error) {
+            console.error(error);
+        }
     },
     async update(req, res) {
         try {
@@ -53,8 +91,31 @@ module.exports = {
     },
     async delete(req, res) {
         try {
+            // Seleciona todos os produtos do usuário
+            const products = await Product.findAll({ where: { user_id: req.body.id } });
+
+            // Seleciona todas as imagens dos produtos
+            const allFilesPromise = products.map(product =>
+                Product.files(product.id)
+            );
+
+            let promiseResults = await Promise.all(allFilesPromise);
+
+            // Faz a remoção do usuário
             await User.delete(req.body.id);
+            // Encerra a sessão do usuário
             req.session.destroy();
+
+            // Remove as imagens da pasta public
+            promiseResults.map(files => {
+                files.map(file => {
+                    try {
+                        unlinkSync(file.path);
+                    } catch (err) {
+                        console.error(err);
+                    }
+                });
+            });
 
             return res.render('session/login', {
                 success: 'Conta deletada com sucesso.'
@@ -67,5 +128,12 @@ module.exports = {
                 error: 'Erro ao tentar deletar sua conta.'
             });
         }
+    },
+    async ads(req, res) {
+        const products = await LoadProductService.load('products', {
+            where: { user_id: req.session.userId }
+        });
+
+        return res.render('user/ads', { products });
     }
 };
