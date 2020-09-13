@@ -68,6 +68,7 @@ $ npm start
 * [Connect PG Simple](https://github.com/voxpelli/node-connect-pg-simple)
 * [Express](https://github.com/expressjs/express)
 * [express-session](https://github.com/expressjs/session)
+* [faker.js](https://github.com/Marak/faker.js)
 * [method-override](https://github.com/expressjs/method-override)
 * [Multer](https://github.com/expressjs/multer)
 * [Nodemailer](https://github.com/nodemailer/nodemailer)
