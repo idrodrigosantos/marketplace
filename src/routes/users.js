@@ -5,7 +5,6 @@ const routes = express.Router();
 // Controllers
 const UserController = require('../app/controllers/UserController');
 const SessionController = require('../app/controllers/SessionController');
-const OrderController = require('../app/controllers/OrderController');
 
 // Validators
 const UserValidator = require('../app/validators/user');
@@ -33,9 +32,6 @@ routes.delete('/', UserController.delete);
 
 // Listagem de anúncios do usuário
 routes.get('/ads', UserController.ads);
-
-// Compra de produtos
-routes.post('/orders', onlyUsers, OrderController.post);
 
 // Exporta as rotas
 module.exports = routes;
