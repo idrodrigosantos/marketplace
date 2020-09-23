@@ -1,9 +1,28 @@
 CREATE DATABASE marketplace;
 
+CREATE TABLE categories (
+    id SERIAL PRIMARY KEY,
+    name text NOT NULL
+);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name text NOT NULL,
+    email text UNIQUE NOT NULL,
+    password text NOT NULL,
+    cpf_cnpj text UNIQUE NOT NULL,
+    cep text,
+    address text,
+    created_at TIMESTAMP DEFAULT (NOW()),
+    updated_at TIMESTAMP DEFAULT (NOW()),
+    reset_token text,
+    reset_token_expires text
+);
+
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
-    category_id INT NOT NULL,
-    user_id INT,
+    category_id INTEGER REFERENCES categories (id),
+    user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     name text NOT NULL,
     description text NOT NULL,
     old_price INT,
@@ -15,45 +34,21 @@ CREATE TABLE products (
     deleted_at TIMESTAMP
 );
 
-CREATE TABLE categories (
-    id SERIAL PRIMARY KEY,
-    name text NOT NULL
-);
-
 CREATE TABLE files (
     id SERIAL PRIMARY KEY,
     name text,
-    path text NOT NULL,
-    product_id INT
+    path text NOT NULL,    
+    product_id INTEGER REFERENCES products (id) ON DELETE CASCADE
 );
-
--- Foreign key
-ALTER TABLE products ADD FOREIGN KEY (category_id) REFERENCES categories (id);
-ALTER TABLE files ADD FOREIGN KEY (product_id) REFERENCES products (id);
-
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    name text NOT NULL,
-    email text UNIQUE NOT NULL,
-    password text NOT NULL,
-    cpf_cnpj text UNIQUE NOT NULL,
-    cep text,
-    address text,
-    created_at TIMESTAMP DEFAULT (NOW()),
-    updated_at TIMESTAMP DEFAULT (NOW())
-);
-
--- Foreign key
-ALTER TABLE products ADD FOREIGN KEY (user_id) REFERENCES users (id);
 
 INSERT INTO categories (name) VALUES
 ('Comida'), ('Eletrônicos'), ('Automóveis');
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
-    seller_id INT NOT NULL,
-    buyer_id INT NOT NULL,
-    product_id INT NOT NULL,
+    seller_id INTEGER REFERENCES users (id),
+    buyer_id INTEGER REFERENCES users (id),
+    product_id INTEGER REFERENCES products (id),
     price INT NOT NULL,
     quantity INT DEFAULT 0,
     total INT NOT NULL,
@@ -61,11 +56,6 @@ CREATE TABLE orders (
     created_at TIMESTAMP DEFAULT (NOW()),
     updated_at TIMESTAMP DEFAULT (NOW())
 );
-
--- Foreign key
-ALTER TABLE orders ADD FOREIGN KEY (seller_id) REFERENCES users (id);
-ALTER TABLE orders ADD FOREIGN KEY (buyer_id) REFERENCES users (id);
-ALTER TABLE orders ADD FOREIGN KEY (product_id) REFERENCES products (id);
 
 -- Create procedure
 CREATE FUNCTION trigger_set_timestamp()
@@ -101,22 +91,8 @@ CREATE TABLE "session" (
     "expire" timestamp(6) NOT NULL
 )
 WITH (OIDS=FALSE);
+
 ALTER TABLE session ADD CONSTRAINT session_pkey PRIMARY KEY (sid) NOT DEFERRABLE INITIALLY IMMEDIATE;
-
--- Token password recovery
-ALTER TABLE users ADD COLUMN reset_token text;
-ALTER TABLE users ADD COLUMN reset_token_expires text;
-
--- Cascade effect when delete user and products
-ALTER TABLE products DROP CONSTRAINT products_user_id_fkey,
-ADD CONSTRAINT products_user_id_fkey FOREIGN KEY (user_id)
-REFERENCES users (id)
-ON DELETE CASCADE;
-
-ALTER TABLE files DROP CONSTRAINT files_product_id_fkey,
-ADD CONSTRAINT files_product_id_fkey FOREIGN KEY (product_id)
-REFERENCES products (id)
-ON DELETE CASCADE;
 
 -- Soft delete
 -- Regra que será executada sempre que houver um delete
