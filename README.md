@@ -33,6 +33,15 @@ module.exports = new Pool({
 });
 ```
 
+Para popular o banco de dados:
+```bash
+# Acesse o diretório
+$ cd database
+
+# Popula o banco de dados
+$ node seed.js
+```
+
 ## Envio de e-mails
 Para testar o envio de e-mails é necessário ter uma conta no [Mailtrap](https://mailtrap.io/).
 
@@ -52,6 +61,13 @@ module.exports = nodemailer.createTransport({
 ```bash
 # Inicie o servidor
 $ npm start
+```
+
+## Testes
+Para usar o sistema com usuário, use algum e-mail gerado após o banco de dados ser populado da tabela `users`.
+```bash
+# Senha padrão
+Senha: 123
 ```
 
 ## Tecnologias
