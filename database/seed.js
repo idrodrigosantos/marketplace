@@ -1,9 +1,9 @@
 const faker = require('faker/locale/pt_BR');
 const { hash } = require('bcryptjs');
 
-const User = require('./src/app/models/User');
-const Product = require('./src/app/models/Product');
-const File = require('./src/app/models/File');
+const User = require('../src/app/models/User');
+const Product = require('../src/app/models/Product');
+const File = require('../src/app/models/File');
 
 let usersIds = [];
 let totalUsers = 3;
