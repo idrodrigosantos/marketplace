@@ -10,7 +10,7 @@ Sistema de marketplace.
 ## Instalação
 ```bash
 # Clone o repositório
-$ git clone https://github.com/imsantosrodrigo/marketplace.git
+$ git clone https://github.com/idrodrigosantos/marketplace.git
 
 # Acesse o diretório
 $ cd marketplace
